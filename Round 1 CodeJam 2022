@@ -1,0 +1,83 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+
+void test_case(){
+    unsigned int dim;
+    std::cin>>dim;
+    std::vector<int> v;
+    for(unsigned int i{};i<dim;i++){
+        int n;
+        std::cin>>n;
+        v.push_back(n);
+    }
+
+    //std::cout<<*(v.begin())<<"      "<<*(v.end()-1)<<"\n";
+    
+    int count{};
+    int max{std::min(v[0], v[dim-1])};
+    while(v.size() > 0){
+        if(*(v.begin()) < *(v.end()-1)){
+            if(*(v.begin()) >= max){
+                count++;
+                max = *(v.begin());
+            }
+            v.erase(v.begin());
+        }
+        else{
+            if(*(v.end()-1) >= max){
+                count++;
+                max = *(v.end()-1);
+            }
+            v.erase(v.end()-1);
+        }
+    }
+
+    std::cout<<count<<"\n";
+
+
+    /*
+
+    int left_count{1};
+    std::pair<int, int> left_max(0, v[0]);
+
+    for(unsigned int i{1};i<dim;i++){
+        if(v[i] >= left_max.second){
+            left_max.first = i;
+            left_max.second = v[i];
+            left_count++;
+        }
+    }
+
+    if(left_count >= dim-1-left_max.first){
+        printf("%d\n", left_count);
+        return;
+    }
+    int right_count{};
+    int right_max{v[dim-1]};
+
+    for(unsigned int i{dim-2};i>left_max.first;i--){
+        if(v[i] >= right_max){
+            right_count++;
+            right_max = v[i];
+        }
+    }
+
+    if(left_count > right_count) printf("%d\n", left_count);
+    else printf("%d\n", right_count);
+
+    return;
+
+    */
+}
+
+int main(){
+    int T;
+    scanf("%d", &T);
+    for(int nr = 1; nr <= T; ++nr){
+        printf("Case #%d: ", nr);
+        test_case();
+    }
+
+}
